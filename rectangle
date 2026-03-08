@@ -1,33 +1,37 @@
 #pragma once
 #include "Shape.h"
 
-class Line : public Shape
+class Rectangle : public Shape
 {
 private:
     unsigned int width;
+    unsigned int height;
 
 public:
-    Line(unsigned int x, unsigned int y, unsigned int w)
-        : Shape(x, y)
+    Rectangle(unsigned int x, unsigned int y, unsigned int w, unsigned int h)
+        : Shape(x,y)
     {
         width = w;
+        height = h;
     }
 
-    Line(const Line& source) : Shape(source)
+    Rectangle(const Rectangle& source) : Shape(source)
     {
         width = source.width;
+        height = source.height;
     }
 
     Shape* clone() override
     {
-        return new Line(*this);
+        return new Rectangle(*this);
     }
 
     void Draw() override
     {
-        std::cout << "Line "
-            << x << " "
-            << y << " "
-            << width << std::endl;
+        std::cout << "Rectangle "
+                  << x << " "
+                  << y << " "
+                  << width << " "
+                  << height << std::endl;
     }
 };
