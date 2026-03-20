@@ -1,37 +1,42 @@
 #pragma once
 #include "Shape.h"
+#include <iostream>
 
-class Rectangle : public Shape
-{
+class Rectangle : public Shape {
 private:
     unsigned int width;
     unsigned int height;
 
 public:
-    Rectangle(unsigned int x, unsigned int y, unsigned int w, unsigned int h)
-        : Shape(x,y)
-    {
+    Rectangle(unsigned int x, unsigned int y, unsigned int w, unsigned int h) 
+        : Shape(x, y), width(w), height(h) {}
+    
+    Rectangle(const Rectangle& source) 
+        : Shape(source), width(source.width), height(source.height) {}
+    
+    Shape* clone() const override {
+        return new Rectangle(*this);
+    }
+    
+    void Draw() const override {
+        std::cout << "Rectangle at (" << x << "," << y 
+                  << ") size " << width << "x" << height << std::endl;
+    }
+    
+    void setSize(unsigned int size) override {
+        width = size;
+        height = size;
+    }
+    
+    void setSize(unsigned int w, unsigned int h) {
         width = w;
         height = h;
     }
-
-    Rectangle(const Rectangle& source) : Shape(source)
-    {
-        width = source.width;
-        height = source.height;
+    
+    unsigned int getSize() const override {
+        return (width + height) / 2; // средний размер
     }
-
-    Shape* clone() override
-    {
-        return new Rectangle(*this);
-    }
-
-    void Draw() override
-    {
-        std::cout << "Rectangle "
-                  << x << " "
-                  << y << " "
-                  << width << " "
-                  << height << std::endl;
-    }
+    
+    unsigned int getWidth() const { return width; }
+    unsigned int getHeight() const { return height; }
 };
