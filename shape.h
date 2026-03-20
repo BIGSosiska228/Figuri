@@ -1,26 +1,21 @@
 #pragma once
-#include <iostream>
 
-class Shape
-{
+class Shape {
 protected:
     unsigned int x;
     unsigned int y;
 
 public:
-    Shape(unsigned int x = 0, unsigned int y = 0)
-    {
-        this->x = x;
-        this->y = y;
-    }
-
-    Shape(const Shape& source)
-    {
-        this->x = source.x;
-        this->y = source.y;
-    }
-
-    virtual Shape* clone() = 0;
-
-    virtual void Draw() = 0;
+    Shape(unsigned int x, unsigned int y) : x(x), y(y) {}
+    Shape(const Shape& source) : x(source.x), y(source.y) {}
+    virtual ~Shape() = default;
+    
+    virtual Shape* clone() const = 0;
+    virtual void Draw() const = 0;
+    virtual void setSize(unsigned int size) = 0;
+    virtual unsigned int getSize() const = 0;
+    
+    unsigned int getX() const { return x; }
+    unsigned int getY() const { return y; }
+    void setPosition(unsigned int newX, unsigned int newY) { x = newX; y = newY; }
 };
